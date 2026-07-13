@@ -1,0 +1,17 @@
+cff-version: 1.2.0
+message: "If you use this code or generated data, please cite the archived version of this repository."
+title: "Data-assimilated PINN for nanopore biointerface electrostatics"
+authors:
+  - family-names: Alizargar
+    given-names: Javad
+    orcid: "https://orcid.org/0000-0003-2966-1315"
+version: "0.1.0"
+date-released: "2026-07-13"
+repository-code: "https://github.com/[username]/[repository]"
+license: MIT
+keywords:
+  - nanopore
+  - biointerface
+  - physics-informed neural network
+  - data assimilation
+  - electrostatic simulation

@@ -1,0 +1,10 @@
+name: nanopore-da-pinn
+channels:
+  - pytorch
+  - conda-forge
+dependencies:
+  - python=3.12
+  - numpy
+  - pandas
+  - matplotlib
+  - pytorch
