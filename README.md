@@ -1,5 +1,34 @@
 # Nanopore DA-PINN Reproducibility Materials
 
+## Corrected revision v0.004
+
+Use `outputs/revision/` and the commands below for the corrected numerical study.
+The v0.003 SG flux reversed the drift sign relative to the stated Nernst-Planck
+equations. Its numerical outputs and the bundled v0.003 ZIP are historical and
+must not be used as validation of the corrected model. See
+`docs/revision_corrections.md` for the correction and verification record.
+
+```powershell
+python -m unittest discover -s tests -v
+python scripts/run_revision_validation.py --steps 500 --seeds 42 43 44
+python scripts/audit_revision_outputs.py
+python scripts/plot_revision_figures.py
+```
+
+The revision records Python/library versions and CPU details in
+`outputs/revision/environment.json`. Use `requirements-revision.txt` for the
+tested versions. Training uses float64 and two PyTorch CPU threads. All nine
+fixed-budget runs, model weights, held-out-node metrics, independent diagnostics,
+and figures are retained. Seed variation is descriptive, not a statistical
+significance claim. The wall-adaptive variant changes the physics sampling
+measure; initialization and data anchors are paired, but axial collocation draws
+also differ. Parameter sweeps are reference solves, not surrogate generalization.
+
+Field-evaluation latency excludes current calculation. Training and generating
+reference data are additional costs. Cached reference interpolation is included
+as a comparator; repeated evaluation of one known state does not require a new
+PNP solve. No end-to-end acceleration or experimental validation is claimed.
+
 This repository contains code, configuration files, numerical outputs, and
 reproducibility scripts for a full-length manuscript on exact-boundary
 data-assimilated physics-informed neural networks for coupled
@@ -21,7 +50,7 @@ or confidential submission package.
 - `docs/` - method notes and project documentation.
 - `requirements.txt` - Python dependencies.
 
-## Environment
+## Historical v0.003 Environment
 
 Python 3.12 was used for the reported runs.
 
@@ -31,9 +60,10 @@ py -3.12 -m venv .venv
 pip install -r requirements.txt
 ```
 
-## Main Reproduction Commands
+## Historical v0.003 Commands
 
-Run from the repository root.
+These commands document the earlier release, not the corrected revision.
+Use the revision commands above for current results.
 
 ```powershell
 py -3.12 scripts\run_charged_dev_benchmark.py surface_wall_0p036mC.yaml
@@ -44,7 +74,7 @@ py -3.12 scripts\run_surface_response_sweep.py quick
 
 The benchmark scripts write CSV/NPZ/PNG outputs under `outputs/`.
 
-## Key Outputs
+## Historical Outputs Superseded by outputs/revision
 
 - `outputs/charged_dev/surface_wall_0p036mC/charged_dev_metrics.csv`
 - `outputs/charged_dev/surface_wall_0p036mC/charged_dev_fields.npz`

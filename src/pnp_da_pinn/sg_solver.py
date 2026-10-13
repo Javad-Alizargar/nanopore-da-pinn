@@ -134,7 +134,7 @@ def solve_np_scharfetter_gummel(psi: np.ndarray, grid: AxisymmetricGrid, ion_sig
                 continue
             if i == nr - 1:
                 delta = ion_sign * (psi[i, j] - psi[i - 1, j])
-                ratio = bernoulli(-delta) / max(bernoulli(delta), 1e-12)
+                ratio = bernoulli(delta) / max(bernoulli(-delta), 1e-12)
                 add(row, row, 1.0)
                 add(row, _idx(nr - 2, j, nz), -ratio)
                 continue
@@ -158,8 +158,8 @@ def solve_np_scharfetter_gummel(psi: np.ndarray, grid: AxisymmetricGrid, ion_sig
                     weight = grid.radial_metric * face_weight / h**2
                 else:
                     weight = 1.0 / h**2
-                coeff_center += weight * b_backward
-                neighbors.append((ni, nj, -weight * b_forward))
+                coeff_center += weight * b_forward
+                neighbors.append((ni, nj, -weight * b_backward))
 
             add(row, row, coeff_center)
             for ni, nj, coeff in neighbors:
@@ -713,7 +713,7 @@ def sg_face_flux_z(c: np.ndarray, psi: np.ndarray, grid: AxisymmetricGrid, ion_s
     flux = np.zeros((nr, nz - 1), dtype=float)
     for j in range(nz - 1):
         delta = ion_sign * (psi[:, j + 1] - psi[:, j])
-        flux[:, j] = -(c[:, j + 1] * bernoulli(delta) - c[:, j] * bernoulli(-delta)) / grid.dz
+        flux[:, j] = -(c[:, j + 1] * bernoulli(-delta) - c[:, j] * bernoulli(delta)) / grid.dz
     return flux
 
 

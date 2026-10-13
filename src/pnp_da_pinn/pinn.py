@@ -49,7 +49,9 @@ def axisymmetric_divergence(
     radial_metric: float,
 ) -> torch.Tensor:
     r_safe = torch.where(r <= 0, torch.full_like(r, 1e-5), r)
-    return radial_metric * (grad(jr, r) + jr / r_safe) + grad(jz, z)
+    derivative = grad(jr, r)
+    radial = torch.where(r == 0, 2.0 * derivative, derivative + jr / r_safe)
+    return radial_metric * radial + grad(jz, z)
 
 
 def pnp_residuals(
@@ -69,7 +71,8 @@ def pnp_residuals(
     d2psi_dr2 = grad(dpsi_dr, r)
     d2psi_dz2 = grad(dpsi_dz, z)
     r_safe = torch.where(r <= 0, torch.full_like(r, 1e-5), r)
-    poisson = radial_metric * (d2psi_dr2 + dpsi_dr / r_safe) + d2psi_dz2 + beta * (c_plus - c_minus)
+    radial_laplacian = torch.where(r == 0, 2.0 * d2psi_dr2, d2psi_dr2 + dpsi_dr / r_safe)
+    poisson = radial_metric * radial_laplacian + d2psi_dz2 + beta * (c_plus - c_minus)
 
     dcp_dr = grad(c_plus, r)
     dcp_dz = grad(c_plus, z)

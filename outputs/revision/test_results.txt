@@ -1,0 +1,16 @@
+test_axis_divergence_limit (test_conservative.PhysicalBenchmarks.test_axis_divergence_limit) ... ok
+test_boltzmann_equilibrium_flux (test_conservative.PhysicalBenchmarks.test_boltzmann_equilibrium_flux) ... ok
+test_charged_equilibrium_and_conservation (test_conservative.PhysicalBenchmarks.test_charged_equilibrium_and_conservation) ... ok
+test_gauss_balance_and_species_conservation (test_conservative.PhysicalBenchmarks.test_gauss_balance_and_species_conservation) ... ok
+test_manufactured_radial_poisson (test_conservative.PhysicalBenchmarks.test_manufactured_radial_poisson) ... ok
+test_neutral_ohmic_solution (test_conservative.PhysicalBenchmarks.test_neutral_ohmic_solution) ... C:\Users\ntunhs\Documents\ChatGPT\COMPHY revise\.venv\Lib\site-packages\scipy\optimize\_nonlin.py:385: RuntimeWarning: invalid value encountered in scalar divide
+  and dx_norm/self.x_rtol <= x_norm))
+ok
+test_production_ionic_equilibrium_all_faces (test_conservative.PhysicalBenchmarks.test_production_ionic_equilibrium_all_faces) ... ok
+test_salt_scaling_is_recomputed (test_conservative.PhysicalBenchmarks.test_salt_scaling_is_recomputed) ... ok
+test_species_diffusivity_scaling (test_conservative.PhysicalBenchmarks.test_species_diffusivity_scaling) ... ok
+
+----------------------------------------------------------------------
+Ran 9 tests in 3.599s
+
+OK

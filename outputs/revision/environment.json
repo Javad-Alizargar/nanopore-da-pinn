@@ -1,0 +1,50 @@
+{
+  "python": "3.14.4 (tags/v3.14.4:23116f9, Apr  7 2026, 14:10:54) [MSC v.1944 64 bit (AMD64)]",
+  "numpy": "2.5.4",
+  "scipy": "1.18.1",
+  "torch": "2.14.1+cpu",
+  "platform": "Windows-10-10.0.19045-SP0",
+  "processor": "Intel64 Family 6 Model 85 Stepping 7, GenuineIntel",
+  "torch_threads": 2,
+  "dtype": "float64",
+  "device": "CPU",
+  "steps": 500,
+  "seeds": [
+    42,
+    43,
+    44
+  ],
+  "config": {
+    "geometry": {
+      "radius_nm": 5.0,
+      "length_nm": 30.0,
+      "nr": 21,
+      "nz": 61
+    },
+    "physics": {
+      "temperature_K": 298.15,
+      "bulk_concentration_mol_m3": 100.0,
+      "relative_permittivity": 78.5,
+      "diffusion_cation_m2_s": 1.96e-09,
+      "diffusion_anion_m2_s": 2.03e-09,
+      "applied_voltage_V": 0.05,
+      "fixed_charge_strength": 0.0,
+      "wall_surface_charge_strength": -0.01
+    },
+    "solver": {
+      "max_gummel_iter": 300,
+      "tolerance": 1e-06,
+      "relaxation": 0.005
+    },
+    "pinn": {
+      "seed": 42,
+      "collocation_points": 3000,
+      "data_points": 500,
+      "epochs": 200
+    }
+  },
+  "cpu_models": "Intel(R) Xeon(R) Gold 5215 CPU @ 2.50GHz\nIntel(R) Xeon(R) Gold 5215 CPU @ 2.50GHz",
+  "execution_note": "Independent training jobs ran concurrently on the dual-CPU workstation; post-training inference/reference timings were rerun without training jobs.",
+  "effective_training_steps": 500,
+  "configuration_note": "The original configuration records epochs=200; the revision runner overrides this with --steps 500."
+}

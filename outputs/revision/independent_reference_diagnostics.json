@@ -1,0 +1,8 @@
+{
+  "poisson_raw_max": 1.9134200998947165e-05,
+  "poisson_diagonal_scaled_max": 5.315055833040881e-10,
+  "cation_diagonal_scaled_max": 8.084248312505277e-16,
+  "cation_relative_flux_range": 1.3841920899007938e-13,
+  "anion_diagonal_scaled_max": 6.063197207808229e-16,
+  "anion_relative_flux_range": 9.214071317083535e-14
+}
