@@ -6,7 +6,7 @@ import pandas as pd
 import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
-from matplotlib.patches import Rectangle
+from plot_author_style_figures import workflow, surface_response, save_panels, PANELS_ONLY
 
 ROOT = Path(__file__).resolve().parents[1]
 DATA = ROOT / 'outputs/revision'
@@ -22,8 +22,10 @@ plt.rcParams.update({'font.size':10,'axes.spines.top':False,'axes.spines.right':
 
 
 def save(fig,name):
-    fig.savefig(OUT / (name+'.png'),dpi=300)
-    fig.savefig(OUT / (name+'.pdf'))
+    if not PANELS_ONLY:
+        fig.savefig(OUT / (name+'.png'),dpi=300)
+        fig.savefig(OUT / (name+'.pdf'))
+    save_panels(fig,name)
     plt.close(fig)
 
 
@@ -41,34 +43,7 @@ def main():
     stats=pd.read_csv(DATA/'surrogate_runs.csv')
     grids=pd.read_csv(DATA/'grid_refinement.csv')
     sweep=pd.read_csv(DATA/'parameter_sweep.csv')
-    fig,ax=plt.subplots(2,3,figsize=(11.5,6.4),layout='constrained')
-    a=ax[0,0]
-    a.add_patch(Rectangle((0,.15),1,.7,facecolor='#e8f4f5',edgecolor='black'))
-    a.plot([0,1],[.85,.85],color='#b4443a',lw=3)
-    a.plot([0,1],[.15,.15],color='#b4443a',lw=3)
-    a.annotate('',xy=(.9,.5),xytext=(.1,.5),arrowprops={'arrowstyle':'->','lw':2})
-    a.text(.5,.95,'Charged wall',ha='center')
-    a.text(.5,.65,'R = 5 nm     L = 30 nm',ha='center')
-    a.text(.05,.35,'50 mV',ha='left')
-    a.text(.95,.35,'0 mV',ha='right')
-    a.set(xlim=(-.05,1.05),ylim=(0,1.1),title='A  Cylindrical pore')
-    a.axis('off')
-    field(ax[0,1],r,z,ref['c_plus']-1,'B  Conservative reference: cation excess')
-    indices=pred['training_indices']
-    rr,zz=np.meshgrid(r,z,indexing='ij')
-    ax[0,2].scatter(zz.ravel()[indices],rr.ravel()[indices],s=3,color='#27866e')
-    ax[0,2].set(xlabel='z/L',ylabel='r/R',title='C  500 numerical anchors')
-    ax[1,0].axis('off')
-    ax[1,0].set_title('D  Exact reservoir constraints')
-    ax[1,0].text(.03,.8,r'$\psi_\theta=\psi_{app}(1-z)+z(1-z)N_\psi$',fontsize=12)
-    ax[1,0].text(.03,.59,r'$c_{\pm,\theta}=\exp[z(1-z)N_\pm]$',fontsize=12)
-    ax[1,0].text(.03,.34,'PNP residuals + axis/wall conditions\n+ field and charge assimilation',linespacing=1.7)
-    field(ax[1,1],r,z,pred['c_plus']-1,'E  DA-PINN: cation excess')
-    a=ax[1,2]
-    a.axis('off')
-    a.set_title('F  Independent diagnostics')
-    a.text(.03,.8,'Equilibrium and Ohmic tests\nTolerance and field refinement\nHeld-out nodes and paired seeds\nCharge and current errors\nTraining and inference timing',va='top',linespacing=1.9)
-    save(fig,'Figure_1_workflow')
+    workflow(ref,pred)
     fig,axes=plt.subplots(2,2,figsize=(10,6.4),layout='constrained')
     for a,key,title in zip(axes.ravel(),['psi','c_plus','c_minus','charge'],
                            ['A  Potential','B  Cation concentration','C  Anion concentration','D  Net charge density']):
@@ -94,20 +69,7 @@ def main():
         field(axes[0,i],r,z,b,['A  DA-PINN potential','B  DA-PINN cation','C  DA-PINN charge'][i])
         field(axes[1,i],r,z,np.abs(a-b),['D  Absolute potential error','E  Absolute cation error','F  Absolute charge error'][i],'magma')
     save(fig,'Figure_4_surrogate_errors')
-    fig,axes=plt.subplots(2,2,figsize=(10,6.4),layout='constrained')
-    iv=sweep[sweep['case'].str.startswith('voltage')].sort_values('voltage_mV')
-    axes[0,0].plot(iv.voltage_mV,iv.current_pA,'o-',color='#327d86')
-    axes[0,0].set(xlabel='Voltage (mV)',ylabel='Current (pA)',title='A  SG/FV current-voltage sweep')
-    charge=sweep[sweep['case'].str.startswith('charge')].sort_values('wall_charge',ascending=False)
-    axes[0,1].plot(-charge.wall_charge,charge.wall_cation-1,'o-',color='#27866e')
-    axes[0,1].set(xlabel=r'$|q_w|$',ylabel='Near-wall cation excess',title='B  SG/FV charge sweep')
-    salt=sweep[sweep['case'].str.startswith('salt')]
-    axes[1,0].semilogx(salt.bulk,salt.wall_cation-1,'o-',color='#a65143')
-    axes[1,0].set(xlabel=r'Bulk concentration (mol m$^{-3}$)',ylabel='Near-wall cation excess',title='C  SG/FV salt sweep')
-    radius=sweep[sweep['case'].str.startswith('radius')]
-    axes[1,1].plot(radius.radius_nm,radius.current_pA,'o-',color='#6f5b92')
-    axes[1,1].set(xlabel='Radius (nm)',ylabel='Current (pA)',title='D  SG/FV radius sweep')
-    save(fig,'Figure_5_surface_response')
+    surface_response(ref,sweep)
     fig,axes=plt.subplots(1,3,figsize=(11.5,3.7),layout='constrained')
     modes=['physics_only','data_assimilated','wall_adaptive']
     labels=['Physics\nonly','Data\nassisted','Wall\nadaptive']

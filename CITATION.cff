@@ -1,10 +1,10 @@
 cff-version: 1.2.0
-message: "Cite the corrected v0.004 tag and its commit for these results; v0.003 data are superseded."
+message: "Cite v0.005 for corrected results and author-style figures; v0.003 data are superseded."
 title: "Data-assimilated PINN for charged nanopore Poisson--Nernst--Planck transport"
 authors:
   - family-names: "Alizargar"
     given-names: "Javad"
     orcid: "https://orcid.org/0000-0003-2966-1315"
-version: "0.004"
-date-released: "2026-10-13"
+version: "0.005"
+date-released: "2026-10-14"
 repository-code: "https://github.com/Javad-Alizargar/nanopore-da-pinn"

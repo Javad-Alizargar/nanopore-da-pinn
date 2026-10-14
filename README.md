@@ -1,6 +1,11 @@
 # Nanopore DA-PINN Reproducibility Materials
 
-## Corrected revision v0.004
+## Corrected revision v0.005
+
+The v0.005 presentation update retains the v0.004 corrected numerical analysis.
+It restores the author's original Figure 1 artwork with corrected data insets,
+restores the original four Figure 5 panel topics, and moves wider sweeps to
+Supplementary Figure S1. See `docs/figure_presentation_update.md` for details.
 
 Use `outputs/revision/` and the commands below for the corrected numerical study.
 The v0.003 SG flux reversed the drift sign relative to the stated Nernst-Planck
