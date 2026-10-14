@@ -108,8 +108,8 @@ def workflow(ref,pred):
     label(1195,643,'Four hidden layers, 64 SiLU units each',size=10)
     label(1195,669,'PNP + wall/axis + field/charge losses',size=11,
           bbox={'boxstyle':'round,pad=.35','facecolor':'white','edgecolor':'#444444'})
-    erase(1363,557,68,15)
-    label(1442,598,'Exact reservoir\nDirichlet values',size=8,color='#173c89')
+    erase(1363,557,68,36)
+    label(1396,602,'Exact reservoir\nDirichlet values',size=8,color='#173c89')
 
     # Panel E replaces every old result, including the unrelated hourglass maps.
     erase(0,353,507,342)
