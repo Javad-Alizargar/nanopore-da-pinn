@@ -1,8 +1,8 @@
 # Nanopore DA-PINN Reproducibility Materials
 
-## Corrected revision v0.006
+## Corrected revision v0.007
 
-The v0.006 presentation update retains the v0.004 corrected numerical analysis.
+The v0.007 presentation update retains the v0.004 corrected numerical analysis.
 It restores the author's original Figure 1 artwork with corrected data insets,
 restores the original four Figure 5 panel topics, and moves wider sweeps to
 Supplementary Figure S1. See `docs/figure_presentation_update.md` for details.

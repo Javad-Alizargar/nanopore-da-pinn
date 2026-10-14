@@ -47,6 +47,6 @@ reported as unweighted nodal norms and separately as cylindrical-volume norms.
 Grid comparisons to 41 x 121 use interpolation and do not assert formal
 convergence order or an exact continuum solution.
 
-Use the v0.006 tag/commit for revised figures with unchanged v0.004 results. The prior Zenodo archive and
+Use the v0.007 tag/commit for revised figures with unchanged v0.004 results. The prior Zenodo archive and
 v0.003 release identify historical materials only; no updated Zenodo DOI is
 claimed by this revision.

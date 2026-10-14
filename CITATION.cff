@@ -1,5 +1,5 @@
 cff-version: 1.2.0
-message: "Cite v0.006 for corrected results and author-style figures; v0.003 data are superseded."
+message: "Cite v0.007 for corrected results and author-style figures; v0.003 data are superseded."
 title: "Data-assimilated PINN for charged nanopore Poisson--Nernst--Planck transport"
 authors:
   - family-names: "Alizargar"
